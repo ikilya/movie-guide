@@ -5,12 +5,12 @@ h1 {
 
 .button {
     display: block;
-    width: 100px;
-    height: 30px;
+    padding: 7px 15px;
+    margin: 10px 0;
     outline: none;
     border: 0;
     text-transform: uppercase;
-    background-color: black;
+    background-color: #1c1c1c;
     color: #fff;
     cursor: pointer;
 }

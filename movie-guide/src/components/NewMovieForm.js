@@ -7,7 +7,7 @@ import './NewMovieForm.css'
 import TextInputField from "./formFields/TextInputField";
 import SelectField from "./formFields/SelectField";
 
-const NewMovieForm = () => {
+const NewMovieForm = (props) => {
     return (
         <div className='NewMovieFormWrapper'>
             <h1>Add movie</h1>
@@ -16,7 +16,7 @@ const NewMovieForm = () => {
                     title: '',
                     releaseYear: '',
                     movieFormat: '',
-                    stars: ['star1', 'star2']
+                    stars: []
                 }}
 
                 validationSchema = { Yup.object({
@@ -28,7 +28,11 @@ const NewMovieForm = () => {
                         .min(1895, "Must be at least 1895")
                         .required("Required"),
                     movieFormat: Yup.string()
-                        .required("Required")
+                        .required("Required"),
+                    stars: Yup.array()
+                        .of(
+                            Yup.string().required("Required")
+                        )
                 })}
 
                 onSubmit = {(values, { setSubmitting }) => {
@@ -52,9 +56,13 @@ const NewMovieForm = () => {
                     />
                     <SelectField label='Format' name='movieFormat'>
                         <option value=''>Select</option>
-                        <option value='vhs'>VHS</option>
-                        <option value='dvd'>DVD</option>
-                        <option value='blu-ray'>Blu-ray</option>
+                        {props.movieFormats.map((movieFormat) => {
+                            return (<option
+                                key={movieFormat._id}
+                                value = {movieFormat.movieFormat}>
+                                {movieFormat.movieFormat.toUpperCase()}
+                            </option>)
+                        })}
                     </SelectField>
 
                     <FieldArray name = "stars">
@@ -68,6 +76,7 @@ const NewMovieForm = () => {
                                                 name={`stars[${index}]`}
                                             />
                                             <button
+                                                className = 'button removeButton'
                                                 type="button"
                                                 onClick={() => remove(index)}
                                             >

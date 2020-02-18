@@ -1,13 +1,16 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
-    movies: []
+    movies: [],
+    movieFormats: []
 };
 
 const movieReducer = function(state = initialState, action) {
     switch(action.type) {
         case types.GET_MOVIES_SUCCESS:
             return {...state, movies: action.movies};
+        case types.GET_MOVIE_FORMATS_SUCCESS:
+            return {...state, movieFormats: action.movieFormats};
     }
 
     return state;

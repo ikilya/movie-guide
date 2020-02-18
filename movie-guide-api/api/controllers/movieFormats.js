@@ -8,7 +8,7 @@ exports.movieFormatsGetAll = (request, response, next) => {
         .then(docs => {
             const docsResponse = {
                 count: docs.length,
-                movies: docs.map(doc => {
+                movieFormats: docs.map(doc => {
                     return {
                         movieFormat: doc.movieFormat,
                         _id: doc._id,

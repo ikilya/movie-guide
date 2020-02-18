@@ -6,3 +6,10 @@ export function getMoviesSuccess(movies) {
         movies
     };
 }
+
+export function getMovieFormatsSuccess(movieFormats) {
+    return {
+        type: types.GET_MOVIE_FORMATS_SUCCESS,
+        movieFormats
+    };
+}
