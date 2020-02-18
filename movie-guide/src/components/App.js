@@ -2,11 +2,19 @@ import React, { Component } from "react";
 
 import './App.css';
 import ReduxMovieList from "./ReduxMovieList";
+import NewMovieForm from "./NewMovieForm";
 
 class App extends Component {
     render() {
         return (
-            <ReduxMovieList/>
+            <div>
+                <div className={'newMovieWrapper'}>
+                    <NewMovieForm/>
+                </div>
+                <div className={'moviesWrapper'}>
+                    <ReduxMovieList/>
+                </div>
+            </div>
         );
     }
 }
