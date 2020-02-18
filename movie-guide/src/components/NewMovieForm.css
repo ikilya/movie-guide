@@ -1,0 +1,13 @@
+.NewMovieFormWrapper {
+    width: 500px;
+}
+
+.NewMovieFormWrapper h1 {
+    font-size: 1.2em;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.submitButton {
+    background-color: #27aedb;
+}

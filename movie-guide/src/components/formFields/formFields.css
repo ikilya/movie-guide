@@ -1,0 +1,12 @@
+label {
+    display: block;
+}
+
+input {
+    display: block;
+    padding: 5px 10px;
+}
+
+.fieldError {
+    color: red;
+}

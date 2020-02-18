@@ -1,73 +1,36 @@
 import React from 'react';
-import { Formik, Form, useField } from "formik";
+import { Formik, Form, Field, FieldArray } from "formik";
 import * as Yup from "yup";
 
-const MyTextInput = ({ label, ...props }) => {
-    const [field, meta] = useField(props);
-    return (
-        <>
-            <label htmlFor={props.id || props.name}>{label}</label>
-            <input className="text-input" {...field} {...props} />
-            {meta.touched && meta.error ? (
-                <div className="error">{meta.error}</div>
-            ) : null}
-        </>
-    );
-};
+import './NewMovieForm.css'
 
-const MySelect = ({ label, ...props }) => {
-    const [field, meta] = useField(props);
-    return (
-        <>
-            <label htmlFor={props.id || props.name}>{label}</label>
-            <select {...field} {...props} />
-            {meta.touched && meta.error ? (
-                <div className="error">{meta.error}</div>
-            ) : null}
-        </>
-    );
-};
-
-/*const validate = values => {
-    const errors = {};
-    if (!values.title) {
-        errors.title = 'Required';
-    }
-
-    if (!values.releaseYear) {
-        errors.releaseYear = 'Required';
-    } else {
-        const releaseYear = Number(values.releaseYear);
-        if (Number.isNaN(releaseYear)) {
-            errors.releaseYear = 'Invalid year';
-        } else if (releaseYear < 1895 || releaseYear > 2030) {
-            errors.releaseYear = 'Set the year between 1895 and 2030';
-        }
-    }
-
-    return errors;
-};*/
+import TextInputField from "./formFields/TextInputField";
+import SelectField from "./formFields/SelectField";
 
 const NewMovieForm = () => {
     return (
-        <>
+        <div className='NewMovieFormWrapper'>
             <h1>Add movie</h1>
             <Formik
                 initialValues = {{
                     title: '',
                     releaseYear: '',
                     movieFormat: '',
-                    stars: []
+                    stars: ['star1', 'star2']
                 }}
+
                 validationSchema = { Yup.object({
                     title: Yup.string()
                         .required("Required"),
                     releaseYear: Yup.number()
+                        .typeError('Must be a number')
                         .max(2030, "Must be no more than 2030")
+                        .min(1895, "Must be at least 1895")
                         .required("Required"),
                     movieFormat: Yup.string()
                         .required("Required")
                 })}
+
                 onSubmit = {(values, { setSubmitting }) => {
                     setTimeout(() => {
                         alert(JSON.stringify(values, null, 2));
@@ -75,32 +38,60 @@ const NewMovieForm = () => {
                     }, 400);
                 }}
             >
+                { ({values}) => (
                 <Form>
-                    <MyTextInput
-                        label = 'Title'
-                        name = 'title'
-                        type = 'text'
+                    <TextInputField
+                        label='Title'
+                        name='title'
+                        type='text'
                     />
-                    <MyTextInput
-                        label = 'Release year'
-                        name = 'releaseYear'
-                        type = 'text'
+                    <TextInputField
+                        label='Release year'
+                        name='releaseYear'
+                        type='text'
                     />
-                    <MySelect label = 'Format' name = 'movieFormat'>
-                        <option value = 'vhs'>VHS</option>
-                        <option value = 'dvd'>DVD</option>
-                        <option value = 'blu-ray'>Blu-ray</option>
-                    </MySelect>
-                    <MyTextInput
-                        label = 'Actor'
-                        name = 'actor'
-                        type = 'text'
-                    />
-                    <button type = 'button'>Add actor</button>
-                    <button type = 'submit'>Add movie</button>
+                    <SelectField label='Format' name='movieFormat'>
+                        <option value=''>Select</option>
+                        <option value='vhs'>VHS</option>
+                        <option value='dvd'>DVD</option>
+                        <option value='blu-ray'>Blu-ray</option>
+                    </SelectField>
+
+                    <FieldArray name = "stars">
+                        {({ push, remove }) => (
+                            <div>
+                                {values.stars.map((starItem, index) => {
+                                    return (
+                                        <div key={index}>
+                                            <TextInputField
+                                                label="Actor"
+                                                name={`stars[${index}]`}
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => remove(index)}
+                                            >
+                                                Remove
+                                            </button>
+                                        </div>
+                                    );
+                                })}
+                                <button
+                                    className = 'button'
+                                    type = "button"
+                                    onClick = {() => push('')}
+                                >
+                                    Add actor
+                                </button>
+                            </div>
+                        )}
+                    </FieldArray>
+
+                    <button type='submit' className = 'button submitButton'>Add movie</button>
                 </Form>
+                )}
             </Formik>
-        </>
+        </div>
     );
 };
 
