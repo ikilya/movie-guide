@@ -16,14 +16,14 @@ const NewMovieForm = (props) => {
                     title: '',
                     releaseYear: '',
                     movieFormat: '',
-                    stars: []
+                    stars: ['']
                 }}
 
                 validationSchema = { Yup.object({
                     title: Yup.string()
                         .required("Required"),
                     releaseYear: Yup.number()
-                        .typeError('Must be a number')
+                        .typeError('Invalid year')
                         .max(2030, "Must be no more than 2030")
                         .min(1895, "Must be at least 1895")
                         .required("Required"),
@@ -37,7 +37,7 @@ const NewMovieForm = (props) => {
 
                 onSubmit = {(values, { setSubmitting }) => {
                     setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
+                        props.setMovie(values);
                         setSubmitting(false);
                     }, 400);
                 }}
@@ -86,7 +86,7 @@ const NewMovieForm = (props) => {
                                     );
                                 })}
                                 <button
-                                    className = 'button'
+                                    className = 'button addButton'
                                     type = "button"
                                     onClick = {() => push('')}
                                 >

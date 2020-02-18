@@ -59,11 +59,13 @@ exports.moviesCreateMovie = (request, response, next) => {
             response.status(201).json({
                 message: 'Created movie successfully',
                 createdMovie: {
-                    title: result.title,
-                    releaseYear: result.releaseYear,
-                    movieFormat: result._id,
-                    stars: result.stars,
-                    _id: result._id,
+                    movie: {
+                        title: result.title,
+                        releaseYear: result.releaseYear,
+                        movieFormat: result._id,
+                        stars: result.stars,
+                        _id: result._id
+                    },
                     request: {
                         type: 'GET',
                         url: 'http://localhost:3000/movies/' + result._id

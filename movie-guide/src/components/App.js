@@ -7,7 +7,7 @@ import ReduxNewMovieForm from "./ReduxNewMovieForm";
 class App extends Component {
     render() {
         return (
-            <div>
+            <div className={'appWrapper'}>
                 <div className={'newMovieWrapper'}>
                     <ReduxNewMovieForm/>
                 </div>

@@ -1,21 +1,37 @@
 import axios from 'axios';
 import store from '../store';
-import { getMoviesSuccess, getMovieFormatsSuccess } from '../actions/movieActions';
+import { getMoviesSuccess, setMovieSuccess, getMovieFormatsSuccess } from '../actions/movieActions';
 
 export function getMovies() {
-    return axios.get('http://localhost:3000/movies/')
-        .then(response => {
-            console.log(response.data);
-            store.dispatch(getMoviesSuccess(response.data.movies));
-            return response;
+    return axios
+            .get('http://localhost:3000/movies/')
+            .then(response => {
+                store.dispatch(getMoviesSuccess(response.data.movies));
+                return response;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+}
+
+export function setMovie(movie) {
+    return axios
+        .post('http://localhost:3000/movies/', movie)
+        .then(function (response) {
+            store.dispatch(setMovieSuccess(response.data.createdMovie.movie));
+        })
+        .catch(function (error) {
+            console.log(error);
         });
 }
 
 export function getMovieFormats() {
     return axios.get('http://localhost:3000/movieformats/')
         .then(response => {
-            console.log(response.data);
             store.dispatch(getMovieFormatsSuccess(response.data.movieFormats));
             return response;
+        })
+        .catch(function (error) {
+            console.log(error);
         });
 }

@@ -26,7 +26,12 @@
     background-color: #281E1F;
 }
 
+.addButton {
+    width: 100%;
+}
+
 .submitButton {
-    margin: 10px auto;
+    width: 100%;
+    margin: 10px 0;
     background-color: #27aedb;
 }
