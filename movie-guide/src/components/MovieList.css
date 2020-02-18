@@ -1,0 +1,15 @@
+.movieList {
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.movieList li {
+    margin: 0;
+    padding: 5px 20px;
+}
+
+.movieList li:nth-child(odd) {
+    background-color: #eee;
+}

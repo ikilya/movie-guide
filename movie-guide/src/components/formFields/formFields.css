@@ -9,4 +9,5 @@ input {
 
 .fieldError {
     color: red;
+    margin: 0 5px;
 }

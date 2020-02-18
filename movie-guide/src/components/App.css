@@ -1,5 +1,21 @@
+html, body {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .appWrapper {
     display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+}
+
+.moviesWrapper {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 0 0 20px;
 }
 
 h1 {
@@ -14,7 +30,7 @@ h1 {
     outline: none;
     border: 0;
     text-transform: uppercase;
-    background-color: #1c1c1c;
+    background-color: #281E1F;
     color: #fff;
     cursor: pointer;
 }

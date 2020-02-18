@@ -33,6 +33,7 @@ const NewMovieForm = (props) => {
                         .of(
                             Yup.string().required("Required")
                         )
+                        .required("Required")
                 })}
 
                 onSubmit = {(values, { setSubmitting }) => {
@@ -65,36 +66,43 @@ const NewMovieForm = (props) => {
                         })}
                     </SelectField>
 
-                    <FieldArray name = "stars">
-                        {({ push, remove }) => (
-                            <div>
-                                {values.stars.map((starItem, index) => {
-                                    return (
-                                        <div key={index}>
-                                            <TextInputField
-                                                label="Actor"
-                                                name={`stars[${index}]`}
-                                            />
-                                            <button
-                                                className = 'button removeButton'
-                                                type="button"
-                                                onClick={() => remove(index)}
-                                            >
-                                                Remove
-                                            </button>
-                                        </div>
-                                    );
-                                })}
-                                <button
-                                    className = 'button addButton'
-                                    type = "button"
-                                    onClick = {() => push('')}
-                                >
-                                    Add actor
-                                </button>
-                            </div>
-                        )}
-                    </FieldArray>
+                    <div className = 'starsFieldsWrapper'>
+                        <h2>Stars</h2>
+                        <FieldArray name = "stars">
+                            {({ push, remove }) => (
+                                <div>
+                                    {values.stars.map((starItem, index, stars) => {
+                                        return (
+                                            <div key = {index} className = 'starsFieldWrapper'>
+                                                <div className='starFieldWrapper'>
+                                                    <TextInputField
+                                                        label={'Actor'}
+                                                        name={`stars[${index}]`}
+                                                    />
+                                                </div>
+                                                <button
+                                                    className = 'button removeButton'
+                                                    type="button"
+                                                    onClick={() => {
+                                                        if (stars.length > 1) remove(index)
+                                                    }}
+                                                >
+                                                    Remove
+                                                </button>
+                                            </div>
+                                        );
+                                    })}
+                                    <button
+                                        className = 'button addButton'
+                                        type = "button"
+                                        onClick = {() => push('')}
+                                    >
+                                        Add actor
+                                    </button>
+                                </div>
+                            )}
+                        </FieldArray>
+                    </div>
 
                     <button type='submit' className = 'button submitButton'>Add movie</button>
                 </Form>
