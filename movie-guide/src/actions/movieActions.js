@@ -20,3 +20,10 @@ export function getMovieFormatsSuccess(movieFormats) {
         movieFormats
     };
 }
+
+export function changeShowInfo(movieId) {
+    return {
+        type: types.CHANGE_SHOW_INFO,
+        movieId
+    };
+}

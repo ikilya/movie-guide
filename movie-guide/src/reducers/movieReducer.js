@@ -8,9 +8,11 @@ const initialState = {
 const movieReducer = function(state = initialState, action) {
     switch(action.type) {
         case types.GET_MOVIES_SUCCESS:
-            const newMovies = action.movies;
+            const newMovies = action.movies.map((movie) => {
+                return {...movie, showInfo: false}
+            });
             newMovies.sort(compareMovieNames);
-            return {...state, movies: action.movies};
+            return {...state, movies: newMovies};
         case types.SET_MOVIE_SUCCESS: {
             const newMovies = [...state.movies, action.movie];
             newMovies.sort(compareMovieNames);
@@ -18,6 +20,12 @@ const movieReducer = function(state = initialState, action) {
         }
         case types.GET_MOVIE_FORMATS_SUCCESS:
             return {...state, movieFormats: action.movieFormats};
+        case types.CHANGE_SHOW_INFO: {
+            const newMovies = [...state.movies];
+            const index = newMovies.findIndex(movie => movie._id === action.movieId);
+            newMovies[index] = {...newMovies[index], showInfo: !newMovies[index].showInfo};
+            return {...state, movies: newMovies};
+        }
     }
 
     return state;

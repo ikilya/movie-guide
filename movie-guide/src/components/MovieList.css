@@ -6,10 +6,43 @@
 }
 
 .movieList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: 0;
-    padding: 5px 20px;
+    padding: 10px 20px;
 }
 
 .movieList li:nth-child(odd) {
     background-color: #eee;
+}
+
+.movieList .button {
+    display: inline-block;
+    font-size: 0.8em;
+    height: 26px;
+    margin: 0 0 0 10px;
+}
+
+.movieTitle {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.movieInfo h3 {
+    margin: 0;
+}
+
+.movieInfo ul {
+    margin: 0;
+    padding: 0;
+}
+
+.movieInfo li {
+    padding: 5px 0;
+    background: none;
+}
+
+.movieInfo li:nth-child(odd) {
+    background: none;
 }
