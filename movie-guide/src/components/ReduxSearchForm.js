@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {connect} from "react-redux";
-import * as movieApi from '../api/movieApi'
 
 import SearchForm from "./SearchForm";
 import {doSearch} from "../actions/movieActions";

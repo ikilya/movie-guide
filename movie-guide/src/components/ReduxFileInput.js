@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import {connect} from "react-redux";
 import * as movieApi from '../api/movieApi'
 
 import FileInput from "./FileInput";
@@ -69,19 +68,5 @@ class ReduxFileInput extends Component {
         return <FileInput handleFileString = {this.handleFileString}/>;
     }
 }
-/*
-function mapDispatchToProps(dispatch) {
-    return {
-        changeShowInfo: function(movieId) {
-            dispatch(changeShowInfo(movieId));
-        }
-    }
-}
 
-function mapStateToProps(state) {
-    const { foundMovies } = state.movieState;
-    return { foundMovies };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReduxMovieList);*/
 export default ReduxFileInput;
