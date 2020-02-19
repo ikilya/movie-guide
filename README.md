@@ -10,13 +10,13 @@ Service for storing movie information
 </ul>
 <div>
   В командной строке в папке movie-guide-api выполнить:<br/>
-  npm init -y <br/>
+  npm install <br/>
   npm run start <br/>
   Сервер будет доступен на localhost:3000
 </div>
 <div>
   В командной строке в папке movie-guide выполнить:<br/>
-  npm init -y <br/>
+  npm install <br/>
   npm run start <br/>
   Сервер будет доступен на localhost:8080
 </div>
