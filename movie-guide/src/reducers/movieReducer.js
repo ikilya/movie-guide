@@ -17,21 +17,24 @@ const movieReducer = function(state = initialState, action) {
         case types.SET_MOVIE_SUCCESS: {
             const newMovies = [...state.movies, action.movie];
             newMovies.sort(compareMovieNames);
-            return {...state, movies: newMovies};
+            return {...state, movies: newMovies, foundMovies: newMovies};
         }
         case types.DELETE_MOVIE_SUCCESS: {
             const newMovies = [...state.movies];
-            const index = newMovies.findIndex(movie => movie._id === action.movieId);
-            newMovies.splice(index, 1);
-            return {...state, movies: newMovies};
+            const newFoundMovies = [...state.foundMovies];
+            const movieIndex = newMovies.findIndex(movie => movie._id === action.movieId);
+            const foundMovieIndex = newFoundMovies.findIndex(movie => movie._id === action.movieId);
+            newMovies.splice(movieIndex, 1);
+            newFoundMovies.splice(foundMovieIndex, 1);
+            return {...state, movies: newMovies, foundMovies: newFoundMovies};
         }
         case types.GET_MOVIE_FORMATS_SUCCESS:
             return {...state, movieFormats: action.movieFormats};
         case types.CHANGE_SHOW_INFO: {
-            const newMovies = [...state.movies];
+            const newMovies = [...state.foundMovies];
             const index = newMovies.findIndex(movie => movie._id === action.movieId);
             newMovies[index] = {...newMovies[index], showInfo: !newMovies[index].showInfo};
-            return {...state, movies: newMovies};
+            return {...state, foundMovies: newMovies};
         }
         case types.DO_SEARCH: {
             const searchText = action.searchParameters.searchText.toLowerCase();
@@ -47,8 +50,7 @@ const movieReducer = function(state = initialState, action) {
                 }
                 return false;
             });
-            console.log(newFoundMovies);
-            return {...state};
+            return {...state, foundMovies: newFoundMovies};
         }
     }
 

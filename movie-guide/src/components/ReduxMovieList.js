@@ -12,7 +12,7 @@ class ReduxMovieList extends Component {
     }
 
     render() {
-        return <MovieList movies = {this.props.movies} changeShowInfo = {this.props.changeShowInfo} deleteMovie = {movieApi.deleteMovie} />;
+        return <MovieList movies = {this.props.foundMovies} changeShowInfo = {this.props.changeShowInfo} deleteMovie = {movieApi.deleteMovie} />;
     }
 }
 
@@ -25,8 +25,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    const { movies } = state.movieState;
-    return { movies };
+    const { foundMovies } = state.movieState;
+    return { foundMovies };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReduxMovieList);
