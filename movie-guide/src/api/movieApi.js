@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../store';
-import { getMoviesSuccess, setMovieSuccess, getMovieFormatsSuccess } from '../actions/movieActions';
+import { getMoviesSuccess, setMovieSuccess, deleteMovieSuccess, getMovieFormatsSuccess } from '../actions/movieActions';
 
 export function getMovies() {
     return axios
@@ -19,6 +19,17 @@ export function setMovie(movie) {
         .post('http://localhost:3000/movies/', movie)
         .then(function (response) {
             store.dispatch(setMovieSuccess(response.data.createdMovie.movie));
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+export function deleteMovie(movieId) {
+    return axios
+        .delete('http://localhost:3000/movies/' + movieId)
+        .then(function (response) {
+            store.dispatch(deleteMovieSuccess(movieId));
         })
         .catch(function (error) {
             console.log(error);

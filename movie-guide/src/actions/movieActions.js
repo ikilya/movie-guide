@@ -14,6 +14,13 @@ export function setMovieSuccess(movie) {
     };
 }
 
+export function deleteMovieSuccess(movieId) {
+    return {
+        type: types.DELETE_MOVIE_SUCCESS,
+        movieId
+    };
+}
+
 export function getMovieFormatsSuccess(movieFormats) {
     return {
         type: types.GET_MOVIE_FORMATS_SUCCESS,

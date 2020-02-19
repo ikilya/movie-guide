@@ -12,7 +12,7 @@ class ReduxMovieList extends Component {
     }
 
     render() {
-        return <MovieList movies = {this.props.movies} changeShowInfo = {this.props.changeShowInfo} />;
+        return <MovieList movies = {this.props.movies} changeShowInfo = {this.props.changeShowInfo} deleteMovie = {movieApi.deleteMovie} />;
     }
 }
 

@@ -33,14 +33,13 @@ class MovieList extends Component {
                                 <div className = 'movieControls'>
                                     <button
                                         className = 'button showInfoButton'
-                                        onClick={() => {
-                                            this.props.changeShowInfo(movie._id)
-                                        }}
+                                        onClick={this.props.changeShowInfo.bind(null, movie._id)}
                                     >
                                         Info
                                     </button>
                                     <button
                                         className = 'button removeButton'
+                                        onClick={this.props.deleteMovie.bind(null, movie._id)}
                                     >
                                         Remove
                                     </button>

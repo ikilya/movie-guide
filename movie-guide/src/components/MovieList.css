@@ -36,6 +36,7 @@
 .movieInfo ul {
     margin: 0;
     padding: 0;
+    color: #555555;
 }
 
 .movieInfo li {
@@ -45,4 +46,8 @@
 
 .movieInfo li:nth-child(odd) {
     background: none;
+}
+
+.movieInfo p {
+    color: #555555;
 }

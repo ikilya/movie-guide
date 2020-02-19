@@ -18,6 +18,12 @@ const movieReducer = function(state = initialState, action) {
             newMovies.sort(compareMovieNames);
             return {...state, movies: newMovies};
         }
+        case types.DELETE_MOVIE_SUCCESS: {
+            const newMovies = [...state.movies];
+            const index = newMovies.findIndex(movie => movie._id === action.movieId);
+            newMovies.splice(index, 1);
+            return {...state, movies: newMovies};
+        }
         case types.GET_MOVIE_FORMATS_SUCCESS:
             return {...state, movieFormats: action.movieFormats};
         case types.CHANGE_SHOW_INFO: {

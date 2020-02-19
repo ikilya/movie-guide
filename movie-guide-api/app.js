@@ -17,10 +17,7 @@ app.use(bodyParser.json());
 app.use((request, response, next) => {
     response.header('Access-Control-Allow-Origin', '*');
     response.header('Access-Control-Allow-Headers', '*');
-    if (request.methods === 'OPTIONS') {
-        response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-        return response.status(200).json({});
-    }
+    response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     next();
 });
 
