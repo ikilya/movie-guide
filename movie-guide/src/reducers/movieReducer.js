@@ -2,6 +2,7 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
     movies: [],
+    foundMovies: [],
     movieFormats: []
 };
 
@@ -12,7 +13,7 @@ const movieReducer = function(state = initialState, action) {
                 return {...movie, showInfo: false}
             });
             newMovies.sort(compareMovieNames);
-            return {...state, movies: newMovies};
+            return {...state, movies: newMovies, foundMovies: newMovies};
         case types.SET_MOVIE_SUCCESS: {
             const newMovies = [...state.movies, action.movie];
             newMovies.sort(compareMovieNames);
@@ -31,6 +32,23 @@ const movieReducer = function(state = initialState, action) {
             const index = newMovies.findIndex(movie => movie._id === action.movieId);
             newMovies[index] = {...newMovies[index], showInfo: !newMovies[index].showInfo};
             return {...state, movies: newMovies};
+        }
+        case types.DO_SEARCH: {
+            const searchText = action.searchParameters.searchText.toLowerCase();
+            const searchByActor = action.searchParameters.searchByActor;
+            const newFoundMovies = [...state.movies].filter((movie) => {
+                if (!searchByActor) {
+                    return movie.title.toLowerCase().indexOf(searchText) >= 0;
+                }
+                for (let actor of movie.stars) {
+                    if (actor.toLowerCase().indexOf(searchText) >= 0) {
+                        return true;
+                    }
+                }
+                return false;
+            });
+            console.log(newFoundMovies);
+            return {...state};
         }
     }
 

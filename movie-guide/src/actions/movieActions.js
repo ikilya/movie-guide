@@ -34,3 +34,10 @@ export function changeShowInfo(movieId) {
         movieId
     };
 }
+
+export function doSearch(searchParameters) {
+    return {
+        type: types.DO_SEARCH,
+        searchParameters
+    };
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form, Field, FieldArray } from "formik";
+import { Formik, Form, FieldArray } from "formik";
 import * as Yup from "yup";
 
 import './NewMovieForm.css'
