@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import {connect} from "react-redux";
 import * as movieApi from '../api/movieApi'
 
 import NewMovieForm from "./NewMovieForm";
 
-class ReduxNewMovieForm extends Component {
+class ReduxNewMovieForm extends PureComponent {
     constructor(props) {
         super(props);
 

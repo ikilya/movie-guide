@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import {connect} from "react-redux";
 
 import SearchForm from "./SearchForm";
 import {doSearch} from "../actions/movieActions";
 
-class ReduxSearchForm extends Component {
+class ReduxSearchForm extends PureComponent {
     render() {
         return <SearchForm doSearch = {this.props.doSearch}/>;
     }

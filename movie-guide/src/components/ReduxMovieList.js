@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import {connect} from "react-redux";
 import * as movieApi from '../api/movieApi'
 
 import MovieList from "./MovieList";
 import {changeShowInfo} from "../actions/movieActions";
 
-class ReduxMovieList extends Component {
+class ReduxMovieList extends PureComponent {
 
     componentDidMount() {
         movieApi.getMovies();

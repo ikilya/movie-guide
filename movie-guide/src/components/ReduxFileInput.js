@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import * as movieApi from '../api/movieApi'
 
 import FileInput from "./FileInput";
 
-class ReduxFileInput extends Component {
+class ReduxFileInput extends PureComponent {
     constructor(props) {
         super(props);
         this.handleFileString = this.handleFileString.bind(this);

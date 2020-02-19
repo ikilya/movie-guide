@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 
 import './FileInput.css';
 
-class FileInput extends Component {
+class FileInput extends PureComponent {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
