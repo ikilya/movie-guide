@@ -62,7 +62,7 @@ exports.moviesCreateMovie = (request, response, next) => {
                     movie: {
                         title: result.title,
                         releaseYear: result.releaseYear,
-                        movieFormat: result._id,
+                        movieFormat: request.body.movieFormat,
                         stars: result.stars,
                         _id: result._id
                     },

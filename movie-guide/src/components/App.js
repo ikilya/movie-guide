@@ -4,6 +4,7 @@ import './App.css';
 import ReduxMovieList from "./ReduxMovieList";
 import ReduxNewMovieForm from "./ReduxNewMovieForm";
 import ReduxSearchForm from "./ReduxSearchForm";
+import ReduxFileInput from "./ReduxFileInput";
 
 class App extends Component {
     render() {
@@ -11,6 +12,7 @@ class App extends Component {
             <div className={'appWrapper'}>
                 <div className={'newMovieWrapper'}>
                     <ReduxNewMovieForm/>
+                    <ReduxFileInput/>
                 </div>
                 <div className={'moviesWrapper'}>
                     <ReduxSearchForm/>
