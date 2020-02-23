@@ -54,14 +54,13 @@ class ReduxFileInput extends PureComponent {
                 }
                 i++;
             }
+
+            movies.length > 0 && movies.map((movie) => {
+                movieApi.setMovie(movie);
+            });
         } catch (e) {
             console.log(e);
         }
-
-        movies.length > 0 && movies.map((movie) => {
-            console.log(movie);
-            movieApi.setMovie(movie);
-        });
     }
 
     render() {

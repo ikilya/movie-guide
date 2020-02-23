@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const Movie = require('../models/movie');
 const MovieFormat = require('../models/movieFormat');
 
+const { calculateLimitAndOffset, paginate } = require('paginate-info');
+
 exports.moviesGetAll = (request, response, next) => {
     Movie.find()
         .select('title releaseYear movieFormat stars _id')
