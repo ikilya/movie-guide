@@ -1,6 +1,8 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
+    pageCount: 1,
+    currentPage: 4,
     movies: [],
     foundMovies: [],
     movieFormats: []
@@ -12,11 +14,9 @@ const movieReducer = function(state = initialState, action) {
             const newMovies = action.movies.map((movie) => {
                 return {...movie, showInfo: false}
             });
-            newMovies.sort(compareMovieNames);
-            return {...state, movies: newMovies, foundMovies: newMovies};
+            return {...state, pageCount: action.pageCount, movies: newMovies, foundMovies: newMovies};
         case types.SET_MOVIE_SUCCESS: {
             const newMovies = [...state.movies, action.movie];
-            newMovies.sort(compareMovieNames);
             return {...state, movies: newMovies, foundMovies: newMovies};
         }
         case types.DELETE_MOVIE_SUCCESS: {
@@ -52,21 +52,11 @@ const movieReducer = function(state = initialState, action) {
             });
             return {...state, foundMovies: newFoundMovies};
         }
+        case types.CHANGE_CURRENT_PAGE:
+            return {...state, currentPage: action.currentPage};
     }
 
     return state;
 };
-
-function compareMovieNames(movieA, movieB) {
-    const a = movieA.title.toLowerCase();
-    const b = movieB.title.toLowerCase();
-    if (a > b) {
-        return 1;
-    }
-    if (a < b) {
-        return -1;
-    }
-    return 0;
-}
 
 export default movieReducer;

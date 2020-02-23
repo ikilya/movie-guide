@@ -51,3 +51,24 @@
 .movieInfo p {
     color: #555555;
 }
+
+.pagination {
+    margin: 10px 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+}
+
+.pagination li {
+    display: inline-block;
+    margin: 0 20px;
+}
+
+.pagination a {
+    outline: none;
+    cursor: pointer;
+}
+
+.pagination .active {
+    color: #27aedb;
+}

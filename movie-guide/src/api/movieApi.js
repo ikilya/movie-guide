@@ -2,11 +2,11 @@ import axios from 'axios';
 import store from '../store';
 import { getMoviesSuccess, setMovieSuccess, deleteMovieSuccess, getMovieFormatsSuccess } from '../actions/movieActions';
 
-export function getMovies() {
+export function getMovies(currentPage = 1, pageSize = 10) {
     return axios
-            .get('http://localhost:3000/movies/')
+            .get(`http://localhost:3000/movies?currentPage=${currentPage}&pageSize=${pageSize}`)
             .then(response => {
-                store.dispatch(getMoviesSuccess(response.data.movies));
+                store.dispatch(getMoviesSuccess(response.data.paginationInfo.pageCount, response.data.movies));
                 return response;
             })
             .catch(function (error) {

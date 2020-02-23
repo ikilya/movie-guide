@@ -3,16 +3,23 @@ import {connect} from "react-redux";
 import * as movieApi from '../api/movieApi'
 
 import MovieList from "./MovieList";
-import {changeShowInfo} from "../actions/movieActions";
+import {changeCurrentPage, changeShowInfo} from "../actions/movieActions";
 
 class ReduxMovieList extends PureComponent {
 
     componentDidMount() {
-        movieApi.getMovies();
+        movieApi.getMovies(this.props.currentPage);
     }
 
     render() {
-        return <MovieList movies = {this.props.foundMovies} changeShowInfo = {this.props.changeShowInfo} deleteMovie = {movieApi.deleteMovie} />;
+        return <MovieList
+                    movies = {this.props.movies}
+                    pageCount = {this.props.pageCount}
+                    currentPage = {this.props.currentPage}
+                    handlePageClick = {this.props.handlePageClick}
+                    changeShowInfo = {this.props.changeShowInfo}
+                    deleteMovie = {movieApi.deleteMovie}
+                />;
     }
 }
 
@@ -20,13 +27,17 @@ function mapDispatchToProps(dispatch) {
     return {
         changeShowInfo: function(movieId) {
             dispatch(changeShowInfo(movieId));
+        },
+        handlePageClick: function (currentPageData) {
+            dispatch(changeCurrentPage(currentPageData.selected + 1));
+            movieApi.getMovies(currentPageData.selected + 1);
         }
     }
 }
 
 function mapStateToProps(state) {
-    const { foundMovies } = state.movieState;
-    return { foundMovies };
+    const { pageCount, currentPage, movies } = state.movieState;
+    return { pageCount, currentPage, movies };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReduxMovieList);

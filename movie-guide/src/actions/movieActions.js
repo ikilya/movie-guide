@@ -1,8 +1,9 @@
 import * as types from './actionTypes';
 
-export function getMoviesSuccess(movies) {
+export function getMoviesSuccess(pageCount, movies) {
     return {
         type: types.GET_MOVIES_SUCCESS,
+        pageCount,
         movies
     };
 }
@@ -39,5 +40,12 @@ export function doSearch(searchParameters) {
     return {
         type: types.DO_SEARCH,
         searchParameters
+    };
+}
+
+export function changeCurrentPage(currentPage) {
+    return {
+        type: types.CHANGE_CURRENT_PAGE,
+        currentPage
     };
 }
