@@ -5,28 +5,38 @@ const MovieFormat = require('../models/movieFormat');
 const { calculateLimitAndOffset, paginate } = require('paginate-info');
 
 exports.moviesGetAll = (request, response, next) => {
-    Movie.find()
-        .select('title releaseYear movieFormat stars _id')
-        .populate('movieFormat')
-        .exec()
-        .then(docs => {
-            const docsResponse = {
-                count: docs.length,
-                movies: docs.map(doc => {
-                    return {
-                        title: doc.title,
-                        releaseYear: doc.releaseYear,
-                        movieFormat: doc.movieFormat.movieFormat,
-                        stars: doc.stars,
-                        _id: doc._id,
-                        request: {
-                            type: 'GET',
-                            url: 'http://localhost:3000/movies/' + doc._id
-                        }
-                    }
+    Movie
+        .estimatedDocumentCount()
+        .then(count => {
+            const { query: { currentPage, pageSize } } = request;
+            const { limit, offset } = calculateLimitAndOffset(currentPage, pageSize);
+            Movie
+                .find()
+                .limit(limit)
+                .skip(offset)
+                .select('title releaseYear movieFormat stars _id')
+                .populate('movieFormat')
+                .exec()
+                .then(docs => {
+                    const meta = paginate(currentPage, count, docs, pageSize);
+                    const docsResponse = {
+                        paginationInfo: meta,
+                        movies: docs.map(doc => {
+                            return {
+                                title: doc.title,
+                                releaseYear: doc.releaseYear,
+                                movieFormat: doc.movieFormat.movieFormat,
+                                stars: doc.stars,
+                                _id: doc._id,
+                                request: {
+                                    type: 'GET',
+                                    url: 'http://localhost:3000/movies/' + doc._id
+                                }
+                            }
+                        })
+                    };
+                    response.status(200).json(docsResponse);
                 })
-            };
-            response.status(200).json(docsResponse);
         })
         .catch(error => {
             console.log(error);
