@@ -5,20 +5,30 @@ const MovieFormat = require('../models/movieFormat');
 const { calculateLimitAndOffset, paginate } = require('paginate-info');
 
 exports.moviesGetAll = (request, response, next) => {
+    const { query: { searchText, searchByActor, currentPage, pageSize } } = request;
+    const { limit, offset } = calculateLimitAndOffset(currentPage, pageSize);
+    const findParameters = {};
+    if (searchText) {
+        if (searchByActor === 'true') {
+            findParameters.stars = new RegExp(searchText);
+        } else {
+            findParameters.title = new RegExp(searchText);
+        }
+    }
+
     Movie
-        .estimatedDocumentCount()
-        .then(count => {
-            const { query: { currentPage, pageSize } } = request;
-            const { limit, offset } = calculateLimitAndOffset(currentPage, pageSize);
+        .find(findParameters)
+        .then(data => {
             Movie
-                .find()
+                .find(findParameters)
+                .sort('title')
                 .limit(limit)
                 .skip(offset)
                 .select('title releaseYear movieFormat stars _id')
                 .populate('movieFormat')
                 .exec()
                 .then(docs => {
-                    const meta = paginate(currentPage, count, docs, pageSize);
+                    const meta = paginate(currentPage, data.length, docs, pageSize);
                     const docsResponse = {
                         paginationInfo: meta,
                         movies: docs.map(doc => {

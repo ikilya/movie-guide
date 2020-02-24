@@ -8,7 +8,13 @@ import {changeCurrentPage, changeShowInfo} from "../actions/movieActions";
 class ReduxMovieList extends PureComponent {
 
     componentDidMount() {
-        movieApi.getMovies(this.props.currentPage);
+        movieApi.getMovies(this.props.searchParameters, this.props.currentPage);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.currentPage !== this.props.currentPage) {
+            movieApi.getMovies(this.props.searchParameters, this.props.currentPage);
+        }
     }
 
     render() {
@@ -30,14 +36,13 @@ function mapDispatchToProps(dispatch) {
         },
         handlePageClick: function (currentPageData) {
             dispatch(changeCurrentPage(currentPageData.selected + 1));
-            movieApi.getMovies(currentPageData.selected + 1);
         }
     }
 }
 
 function mapStateToProps(state) {
-    const { pageCount, currentPage, movies } = state.movieState;
-    return { pageCount, currentPage, movies };
+    const { pageCount, currentPage, movies, searchParameters } = state.movieState;
+    return { pageCount, currentPage, movies, searchParameters };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReduxMovieList);
