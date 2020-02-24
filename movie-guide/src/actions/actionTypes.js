@@ -7,3 +7,5 @@ export const DO_SEARCH = 'DO_SEARCH';
 export const CHANGE_SHOW_INFO = 'CHANGE_SHOW_INFO';
 
 export const CHANGE_CURRENT_PAGE = 'CHANGE_CURRENT_PAGE';
+
+export const CHANGE_MESSAGE = 'CHANGE_MESSAGE';

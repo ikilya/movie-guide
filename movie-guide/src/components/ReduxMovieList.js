@@ -19,18 +19,21 @@ class ReduxMovieList extends PureComponent {
 
     render() {
         const moviesElement = (this.props.movies.length > 0 ?
-                                <MovieList
-                                    movies = {this.props.movies}
-                                    pageCount = {this.props.pageCount}
-                                    currentPage = {this.props.currentPage}
-                                    handlePageClick = {this.props.handlePageClick}
-                                    changeShowInfo = {this.props.changeShowInfo}
-                                    deleteMovie = {(id) => {
-                                        if (confirm('Delete movie?')) {
-                                            movieApi.deleteMovie(id);
-                                        }
-                                    }}
-                                /> :
+                                <div className='movieListContainer'>
+                                    <div className='messageBox'>{this.props.message}</div>
+                                    <MovieList
+                                        movies = {this.props.movies}
+                                        pageCount = {this.props.pageCount}
+                                        currentPage = {this.props.currentPage}
+                                        handlePageClick = {this.props.handlePageClick}
+                                        changeShowInfo = {this.props.changeShowInfo}
+                                        deleteMovie = {(id) => {
+                                            if (confirm('Delete movie?')) {
+                                                movieApi.deleteMovie(id);
+                                            }
+                                        }}
+                                    />
+                                </div>:
                                 <div>Movies not found</div>
         );
         return moviesElement;
@@ -49,8 +52,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    const { pageCount, currentPage, movies, searchParameters } = state.movieState;
-    return { pageCount, currentPage, movies, searchParameters };
+    const { pageCount, currentPage, movies, searchParameters, message } = state.movieState;
+    return { pageCount, currentPage, movies, searchParameters, message };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReduxMovieList);

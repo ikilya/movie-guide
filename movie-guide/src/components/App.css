@@ -35,3 +35,12 @@ h1 {
     color: #fff;
     cursor: pointer;
 }
+
+.movieListContainer {
+    width: 100%;
+}
+
+.messageBox {
+    margin: 10px 0;
+    color: #27aedb;
+}

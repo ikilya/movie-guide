@@ -2,6 +2,8 @@ import React, { PureComponent } from "react";
 import * as movieApi from '../api/movieApi'
 
 import FileInput from "./FileInput";
+import {changeMessage} from "../actions/movieActions";
+import {connect} from "react-redux";
 
 class ReduxFileInput extends PureComponent {
     constructor(props) {
@@ -55,10 +57,15 @@ class ReduxFileInput extends PureComponent {
                 i++;
             }
 
-            movies.length > 0 && movies.map((movie) => {
-                movieApi.setMovie(movie);
-            });
+            if (movies.length > 0) {
+                movies.map((movie) => {
+                    movieApi.setMovie(movie);
+                });
+            } else {
+                this.props.changeMessage('Failed to load movies');
+            }
         } catch (e) {
+            this.props.changeMessage('Failed to load movies');
             console.log(e);
         }
     }
@@ -68,4 +75,17 @@ class ReduxFileInput extends PureComponent {
     }
 }
 
-export default ReduxFileInput;
+function mapDispatchToProps(dispatch) {
+    return {
+        changeMessage: function(message) {
+            dispatch(changeMessage(message));
+        }
+    }
+}
+
+function mapStateToProps(state) {
+    const { message } = state.movieState;
+    return { message };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReduxFileInput);

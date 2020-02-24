@@ -8,7 +8,8 @@ const initialState = {
     searchParameters: {
         searchText: '',
         searchByActor: false
-    }
+    },
+    message: ''
 };
 
 const movieReducer = function(state = initialState, action) {
@@ -20,13 +21,13 @@ const movieReducer = function(state = initialState, action) {
             return {...state, pageCount: action.pageCount, movies: newFormattedMovies};
         case types.SET_MOVIE_SUCCESS: {
             const newMovies = [...state.movies, action.movie];
-            return {...state, movies: newMovies};
+            return {...state, movies: newMovies, message: 'Movie added'};
         }
         case types.DELETE_MOVIE_SUCCESS: {
             const newMovies = [...state.movies];
             const movieIndex = newMovies.findIndex(movie => movie._id === action.movieId);
             newMovies.splice(movieIndex, 1);
-            return {...state, movies: newMovies};
+            return {...state, movies: newMovies, message: 'Movie deleted'};
         }
         case types.GET_MOVIE_FORMATS_SUCCESS:
             return {...state, movieFormats: action.movieFormats};
@@ -37,10 +38,12 @@ const movieReducer = function(state = initialState, action) {
             return {...state, movies: newMovies};
         }
         case types.DO_SEARCH: {
-            return {...state, searchParameters: action.searchParameters, currentPage: 1};
+            return {...state, searchParameters: action.searchParameters, currentPage: 1, message: ''};
         }
         case types.CHANGE_CURRENT_PAGE:
             return {...state, currentPage: action.currentPage};
+        case types.CHANGE_MESSAGE:
+            return {...state, message: action.message};
     }
 
     return state;
