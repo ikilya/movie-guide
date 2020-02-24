@@ -1,6 +1,12 @@
 import axios from 'axios';
 import store from '../store';
-import { getMoviesSuccess, setMovieSuccess, deleteMovieSuccess, getMovieFormatsSuccess } from '../actions/movieActions';
+import {
+    getMoviesSuccess,
+    setMovieSuccess,
+    deleteMovieSuccess,
+    getMovieFormatsSuccess,
+    changeMessage
+} from '../actions/movieActions';
 
 export function getMovies(searchParameters, currentPage = 1, pageSize = 10) {
     return axios
@@ -18,7 +24,12 @@ export function setMovie(movie) {
     return axios
         .post('http://localhost:3000/movies/', movie)
         .then(function (response) {
-            store.dispatch(setMovieSuccess(response.data.createdMovie.movie));
+            if (response.status === 201) {
+                store.dispatch(setMovieSuccess(response.data.createdMovie.movie));
+            }
+            if (response.status === 200) {
+                store.dispatch(changeMessage(response.data.message));
+            }
         })
         .catch(function (error) {
             console.log(error);

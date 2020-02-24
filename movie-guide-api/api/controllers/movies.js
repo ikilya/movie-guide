@@ -57,10 +57,25 @@ exports.moviesGetAll = (request, response, next) => {
 };
 
 exports.moviesCreateMovie = (request, response, next) => {
-    MovieFormat
-        .findOne({movieFormat: request.body.movieFormat})
-        .select('movieFormat _id')
+    Movie
+        .findOne({
+            title: request.body.title,
+            releaseYear: request.body.releaseYear,
+            stars: request.body.stars.sort()
+        })
         .exec()
+        .then(result => {
+            if (result) {
+                return response.status(200).json({
+                    message: 'Movie already exist'
+                })
+            } else {
+                return MovieFormat
+                    .findOne({movieFormat: request.body.movieFormat})
+                    .select('movieFormat _id')
+                    .exec()
+            }
+        })
         .then(result => {
             if (!result) {
                 return response.status(404).json({
@@ -72,7 +87,7 @@ exports.moviesCreateMovie = (request, response, next) => {
                 title: request.body.title,
                 releaseYear: request.body.releaseYear,
                 movieFormat: result._id,
-                stars: request.body.stars
+                stars: request.body.stars.sort()
             });
             return movie.save();
         })
