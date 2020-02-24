@@ -19,8 +19,7 @@ const movieSchema = mongoose.Schema({
     },
     stars: [{
         type: String,
-        required: [true, 'Actor is required'],
-        minlength: [2, 'Too short name']
+        required: [true, 'Actor is required']
     }]
 });
 

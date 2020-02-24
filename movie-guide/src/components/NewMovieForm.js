@@ -7,6 +7,12 @@ import './NewMovieForm.css'
 import TextInputField from "./formFields/TextInputField";
 import SelectField from "./formFields/SelectField";
 
+Yup.addMethod(Yup.array, 'unique', function(message, mapper = a => a) {
+    return this.test('unique', message, function(list) {
+        return list.length  === new Set(list.map(mapper)).size;
+    });
+});
+
 const NewMovieForm = (props) => {
     return (
         <div className='NewMovieFormWrapper'>
@@ -33,6 +39,7 @@ const NewMovieForm = (props) => {
                         .of(
                             Yup.string().required("Required")
                         )
+                        .unique(' ')
                         .required("Required")
                 })}
 
