@@ -36,10 +36,11 @@ const NewMovieForm = (props) => {
                         .required("Required")
                 })}
 
-                onSubmit = {(values, { setSubmitting }) => {
+                onSubmit = {(values, { setSubmitting, resetForm }) => {
                     setTimeout(() => {
                         props.setMovie(values);
                         setSubmitting(false);
+                        resetForm();
                     }, 400);
                 }}
             >

@@ -24,7 +24,11 @@ class ReduxMovieList extends PureComponent {
                     currentPage = {this.props.currentPage}
                     handlePageClick = {this.props.handlePageClick}
                     changeShowInfo = {this.props.changeShowInfo}
-                    deleteMovie = {movieApi.deleteMovie}
+                    deleteMovie = {(id) => {
+                        if (confirm('Delete movie?')) {
+                            movieApi.deleteMovie(id);
+                        }
+                    }}
                 />;
     }
 }
