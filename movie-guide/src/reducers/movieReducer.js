@@ -14,10 +14,10 @@ const initialState = {
 const movieReducer = function(state = initialState, action) {
     switch(action.type) {
         case types.GET_MOVIES_SUCCESS:
-            const newMovies = action.movies.map((movie) => {
+            const newFormattedMovies = action.movies.map((movie) => {
                 return {...movie, showInfo: false}
             });
-            return {...state, pageCount: action.pageCount, movies: newMovies};
+            return {...state, pageCount: action.pageCount, movies: newFormattedMovies};
         case types.SET_MOVIE_SUCCESS: {
             const newMovies = [...state.movies, action.movie];
             return {...state, movies: newMovies};

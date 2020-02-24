@@ -12,7 +12,10 @@ class ReduxNewMovieForm extends PureComponent {
     }
 
     setMovie(movie) {
-        movieApi.setMovie(movie);
+        movieApi.setMovie(movie)
+            .then(() => {
+                movieApi.getMovies(this.props.searchParameters, this.props.currentPage);
+            });
     }
 
     componentDidMount() {
@@ -28,8 +31,8 @@ class ReduxNewMovieForm extends PureComponent {
 }
 
 function mapStateToProps(state) {
-    const { movieFormats } = state.movieState;
-    return { movieFormats };
+    const { movieFormats, currentPage, searchParameters } = state.movieState;
+    return { movieFormats, currentPage, searchParameters };
 }
 
 export default connect(mapStateToProps)(ReduxNewMovieForm);

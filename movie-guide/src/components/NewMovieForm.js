@@ -24,8 +24,8 @@ const NewMovieForm = (props) => {
                         .required("Required"),
                     releaseYear: Yup.number()
                         .typeError('Invalid year')
-                        .max(2030, "Must be no more than 2030")
-                        .min(1895, "Must be at least 1895")
+                        .max(2020, "Must be no more than 2020")
+                        .min(1850, "Must be at least 1850")
                         .required("Required"),
                     movieFormat: Yup.string()
                         .required("Required"),

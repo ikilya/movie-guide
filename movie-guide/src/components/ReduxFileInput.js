@@ -27,8 +27,8 @@ class ReduxFileInput extends PureComponent {
                         const releaseYear = Number(moviesStrings[i].split(':')[1].trim());
                         if (releaseYear &&
                             Math.round(releaseYear) === releaseYear &&
-                            releaseYear > 1895 &&
-                            releaseYear < 2030
+                            releaseYear >= 1850 &&
+                            releaseYear <= 2020
                         ) {
                             movies[j].releaseYear = releaseYear;
                         } else {

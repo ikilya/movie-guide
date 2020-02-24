@@ -18,18 +18,22 @@ class ReduxMovieList extends PureComponent {
     }
 
     render() {
-        return <MovieList
-                    movies = {this.props.movies}
-                    pageCount = {this.props.pageCount}
-                    currentPage = {this.props.currentPage}
-                    handlePageClick = {this.props.handlePageClick}
-                    changeShowInfo = {this.props.changeShowInfo}
-                    deleteMovie = {(id) => {
-                        if (confirm('Delete movie?')) {
-                            movieApi.deleteMovie(id);
-                        }
-                    }}
-                />;
+        const moviesElement = (this.props.movies.length > 0 ?
+                                <MovieList
+                                    movies = {this.props.movies}
+                                    pageCount = {this.props.pageCount}
+                                    currentPage = {this.props.currentPage}
+                                    handlePageClick = {this.props.handlePageClick}
+                                    changeShowInfo = {this.props.changeShowInfo}
+                                    deleteMovie = {(id) => {
+                                        if (confirm('Delete movie?')) {
+                                            movieApi.deleteMovie(id);
+                                        }
+                                    }}
+                                /> :
+                                <div>Movies not found</div>
+        );
+        return moviesElement;
     }
 }
 
